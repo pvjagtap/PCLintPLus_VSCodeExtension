@@ -1,0 +1,153 @@
+{
+  "name": "vscode-pclint-plus",
+  "displayName": "PC-Lint Plus",
+  "description": "VS Code extension for running PC-Lint Plus and displaying results in Problems panel",
+  "version": "1.2.3",
+  "publisher": "PritamJagtap",
+  "license": "SEE LICENSE IN LICENSE.md",
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pvjagtap/PCPlintPlus_VSCode_Extension.git"
+  },
+  
+  "bugs": {
+    "url": "https://github.com/pvjagtap/PCPlintPlus_VSCode_Extension/issues"
+  },
+  
+  "homepage": "https://github.com/pvjagtap/PCPlintPlus_VSCode_Extension#readme",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "icon": "images/logo.png",
+  "activationEvents": [
+    "onLanguage:c",
+    "onLanguage:cpp",
+    "onLanguage:*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-pclint-plus.lintCurrentFile",
+        "title": "PC-Lint Plus: Lint Current File"
+      },
+      {
+        "command": "vscode-pclint-plus.lintWorkspace",
+        "title": "PC-Lint Plus: Lint Workspace"
+      },
+      {
+        "command": "vscode-pclint-plus.clearDiagnostics",
+        "title": "PC-Lint Plus: Clear Diagnostics"
+      }
+    ],
+    "configuration": {
+      "title": "PC-Lint Plus",
+        "properties": {
+          "pclintplus.executablePath": {
+            "type": "string",
+            "description": "Path to the PC-Lint Plus executable",
+            "scope": "resource"
+          },
+          "pclintplus.filePatterns": {
+              "type": "array",
+              "default": [
+                  "**/*.c",
+                  "**/*.h"
+              ],
+              "description": "File patterns to include when linting workspace"
+          },
+          "pclintplus.excludePatterns": {
+              "type": "array",
+              "default": [
+                  "**/node_modules/**",
+                  "**/build/**",
+                  "**/out/**"
+              ],
+              "description": "File patterns to exclude when linting workspace"
+          },
+
+          "pclintplus.configFiles": {
+            "type": "array",
+            "description": "List of PC-Lint configuration files",
+            "default": [
+              "${workspaceFolder}/cfg/pclint_plus/co-tasking.lnt",
+              "${workspaceFolder}/cfg/pclint_plus/base.lnt",
+              "${workspaceFolder}/cfg/pclint_plus/au-misra3.lnt", 
+              "${workspaceFolder}/cfg/pclint_plus/options.lnt",
+              "${workspaceFolder}/cfg/pclint_plus/env-xml.lnt",
+              "${workspaceFolder}/cfg/pclint_plus/tricore.lnt"
+            ],
+            "scope": "resource"
+          },
+
+          "pclintplus.preprocessorDefinitions": {
+            "type": "array",
+            "description": "Preprocessor definitions for linting",
+            "default": [],
+            "scope": "resource"
+          },
+
+          "pclintplus.additionalArgs": {
+            "type": "array",
+            "description": "Additional arguments for PC-Lint Plus",
+            "default": ["-b", "-width(240,4)"],
+            "scope": "resource"
+          },
+
+          "pclintplus.verbosity": {
+            "type": "string",
+            "enum": ["verbose", "normal", "quiet"],
+            "default": "normal",
+            "description": "Controls the amount of output displayed in the console"
+          },
+          
+          "pclintplus.compilerIncludePath": {
+            "type": "string",
+            "default": "C:\\TASKING\\TriCore v6.3r1\\ctc\\include",
+            "description": "Path to compiler-specific include files"
+          },
+
+          "pclintplus.outputFormat": {
+            "type": "string",
+            "enum": ["text", "xml"],
+            "default": "xml",
+            "description": "Output format for PC-Lint Plus (text or XML)"
+          },
+
+          "pclintplus.autoLintOnSave": {
+            "type": "boolean",
+            "default": false,
+            "description": "Automatically lint files on save"
+          },
+          "pclintplus.useTemporaryConfigFile": {
+            "type": "boolean",
+            "default": true,
+            "description": "Use a temporary configuration file for include paths and preprocessor definitions to avoid command line length issues"
+          },
+
+          "pclintplus.includePaths": {
+          "type": "array",
+          "default": [
+            "${workspaceFolder}/src/",
+            "${workspaceFolder}/input/"
+          ],
+          "description": "Additional include paths for PC-Lint Plus"
+          }
+        }
+      }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.0",
+    "@types/vscode": "^1.60.0",
+    "typescript": "^4.4.0"
+  }
+}
