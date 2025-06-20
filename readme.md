@@ -577,4 +577,4 @@ this.outputChannel.appendLine(`Debug: Args = ${JSON.stringify(args)}`);
 
 ---
 
-**Made with ❤️ for C/C++ developers using PC-Lint Plus**
+**Made for C/C++ developers using PC-Lint Plus**
